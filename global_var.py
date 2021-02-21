@@ -33,7 +33,7 @@ for y in config.BRICKS_Y:
         if bricktoplace != 3:
             BREAKABLE += 1
             if config.NO_OF_POWERUP > 0:
-                PWU = random.randint(0,6)
+                PWU = random.randint(0,10)
                 if PWU < 6:
                     config.NO_OF_POWERUP -= 1
                 else: 

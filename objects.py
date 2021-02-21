@@ -343,6 +343,7 @@ class paddle(Object):
         self.__shrink = 0
         self.__grab_ball = 0
         self.__thruBall = 0
+        self.__grab_pw = 0
 
 
     def xset(self, x):
@@ -430,10 +431,13 @@ class paddle(Object):
     # BOUND BALL POWER
 
     def grab_ball(self):
+        self.__grab_pw += 1
         self.__grab_ball = 1
     
     def rm_grab(self):
-        self.__grab_ball = 0
+        self.__grab_pw -= 1
+        if self.__grab_pw == 0:
+            self.__grab_ball = 0
     
     def grabbed(self):
         return self.__grab_ball
