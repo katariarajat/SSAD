@@ -166,20 +166,20 @@ ___________________
 ## Power description using colors
 ---------------------
  
-# LIGHTRED
+LIGHTRED
     Power = Expand paddle
-# WHITE
+WHITE
     Power = Shrink paddle
-# LIGHTBLACK
+LIGHTBLACK
     Power = Multiply ball(not more than 4)
-# LIGHTYELLOW
+LIGHTYELLOW
     Power = Increase speed of Ball 
-# BLUE
+BLUE
     Power = Ball passes thru bricks
-# GREEN
+GREEN
     Power = Grab Ball
 
-## BONUS IS IMPLEMENTED
+# BONUS IS IMPLEMENTED
 # Time duration of power is 10 seconds 
 
 
