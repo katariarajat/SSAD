@@ -114,7 +114,8 @@ def ball(Object):
 
 How To Play:
 ------------------
->- Run `pip3 -r install requirements.txt`
+>- Run `pip3 install colorama`
+>- Run `pip3 install numpy`
 >- Run the following code to start the game.
 ```
 python3 main.py
