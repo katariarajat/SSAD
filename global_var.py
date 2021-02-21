@@ -28,7 +28,8 @@ for y in config.BRICKS_Y:
     row = []
     # if (y//2)%2 == 0:
     for x in range(6, 103 , 7):
-        bricktoplace = random.randint(0,4)
+        
+        bricktoplace = random.randint(0,3)
         # bricktoplace = 4 # remove this line for randomization
         if bricktoplace != 3:
             BREAKABLE += 1
@@ -43,3 +44,11 @@ for y in config.BRICKS_Y:
         tmp = objects.bricks(config.Bricks[bricktoplace],x,y,(bricktoplace == 3),bricktoplace+1,PWU)
         row.append(tmp)
     Bricks.append(row)
+
+for y in config.BLAST_BRICK_Y:
+    bricktoplace = 4
+    
+    for i in range(3):
+        PWU = Bricks[(y-5)//2][i].getPW()
+        x = Bricks[(y-5)//2][i].xget()
+        Bricks[(y-5)//2][i] = objects.bricks(config.Bricks[bricktoplace],x,y,(bricktoplace == 3),bricktoplace+1,PWU)

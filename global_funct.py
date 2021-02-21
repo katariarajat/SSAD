@@ -142,22 +142,38 @@ def blast(x):
     
     for i in Bricks:
         for j in i:
-            if j.xget() == x.xget() and j.yget() == x.yget() + 2:
+            if j.xget() == x.xget() and j.yget() == x.yget() + 2 and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() and j.yget() == x.yget() - 2:
+                if j.bomb() == 1 :
+                    blast(j)
+            elif j.xget() == x.xget() and j.yget() == x.yget() - 2 and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() + len(config.Bricks[0][0]) + 1 and j.yget() == x.yget() :
+                if j.bomb() == 1:
+                    blast(j)
+            elif j.xget() == x.xget() + len(config.Bricks[0][0]) + 1 and j.yget() == x.yget() and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() - len(config.Bricks[0][0]) - 1 and j.yget() == x.yget() :
+                if j.bomb() == 1:
+                    blast(j)
+            elif j.xget() == x.xget() - len(config.Bricks[0][0]) - 1 and j.yget() == x.yget() and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() + len(config.Bricks[0][0]) + 1 and j.yget() == x.yget()  + 2:
+                if j.bomb() == 1:
+                    blast(j)
+            elif j.xget() == x.xget() + len(config.Bricks[0][0]) + 1 and j.yget() == x.yget()  + 2 and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() + len(config.Bricks[0][0]) + 1 and j.yget() == x.yget()  - 2:
+                if j.bomb() == 1:
+                    blast(j)
+            elif j.xget() == x.xget() + len(config.Bricks[0][0]) + 1 and j.yget() == x.yget()  - 2 and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() - len(config.Bricks[0][0]) - 1 and j.yget() == x.yget() + 2:
+                if j.bomb() == 1:
+                    blast(j)
+            elif j.xget() == x.xget() - len(config.Bricks[0][0]) - 1 and j.yget() == x.yget() + 2 and j.getD() == 0:
                 j.zr_strng()
-            elif j.xget() == x.xget() - len(config.Bricks[0][0]) - 1 and j.yget() == x.yget() - 2:
+                if j.bomb() == 1:
+                    blast(j)
+            elif j.xget() == x.xget() - len(config.Bricks[0][0]) - 1 and j.yget() == x.yget() - 2 and j.getD() == 0:
                 j.zr_strng()
+                if j.bomb() == 1:
+                    blast(j)
 
 
 def ball_brick_collision():
@@ -169,13 +185,14 @@ def ball_brick_collision():
                     if x.getD() == 0:
                         if ball.xget() >= x.xget() and ball.xget() <= x.xget() + x.get_width() - 1:
                             if ball.get_thru() == 1:
+                                x.zr_strng()
                                 if x.bomb() == 1:
                                     blast(x)
-                                x.zr_strng()
+                                
                             else:
                                 if x.bomb() == 1:
-                                    blast(x)
                                     x.zr_strng()
+                                    blast(x)
                                 else:
                                     x.dec_strength()
                                 ball.muly()
