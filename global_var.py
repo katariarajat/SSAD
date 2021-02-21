@@ -29,7 +29,7 @@ for y in config.BRICKS_Y:
     # if (y//2)%2 == 0:
     for x in range(6, 103 , 7):
         bricktoplace = random.randint(0,4)
-        bricktoplace = 4 # remove this line for randomization
+        # bricktoplace = 4 # remove this line for randomization
         if bricktoplace != 3:
             BREAKABLE += 1
             if config.NO_OF_POWERUP > 0:

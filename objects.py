@@ -34,10 +34,6 @@ class Object():
 
     def xset(self, x):
         self._posx += x
-        if self._posx > config.columns - 2:
-            self._posx = config.columns - 2
-        elif self._posx < 2:
-            self._posx = 2
 
     def yset(self, x):
         self._posy += x
@@ -120,6 +116,12 @@ class ball(Object):
         self.__exists = 1
         self.__thru = 0
 
+    def xset(self, x):
+        self._posx += x
+        if self._posx > config.columns - 2:
+            self._posx = config.columns - 2
+        elif self._posx < 2:
+            self._posx = 2
 
     def getx_speed(self):
         return self.__speedx
@@ -190,10 +192,6 @@ class ball(Object):
             self.xset(self.getx_speed())
             self.yset(self.gety_speed())
         else:
-            # if self.getx_speed() > 0:
-            #     self.xset(1)
-            # elif self.getx_speed() < 0:
-            #     self.xset(-1)
             self.xset(self.getx_speed())
             if self.gety_speed() > 0:
                 self.yset(1)
@@ -214,7 +212,7 @@ class ball(Object):
 
     def bound_move(self, inp):
         if inp == 'd':
-            if global_var.paddle.xget() <= global_var.mp.start_index + config.columns - 4 - global_var.paddle.get_width():
+            if global_var.paddle.xget() <= global_var.mp.start_index + config.columns - 5 - global_var.paddle.get_width():
                 self.xset(4)
 
         if inp == 'a':
@@ -232,7 +230,7 @@ class PowerUp(Object):
         super().__init__(character, x, y)
         self.__number = number
         self.__comp = 0
-        self.__dur = 15
+        self.__dur = 10
         self.__start = 0
         self.__inuse = 0
         self.__tmp = 0
@@ -346,6 +344,13 @@ class paddle(Object):
         self.__grab_ball = 0
         self.__thruBall = 0
 
+
+    def xset(self, x):
+        self._posx += x
+        if self._posx > config.columns - 2:
+            self._posx = config.columns - 2
+        elif self._posx < 2:
+            self._posx = 2
 
     def inc_thru(self):
         self.__thruBall += 1
@@ -481,7 +486,7 @@ class paddle(Object):
 
     def move(self, inp):
         if inp == 'd':
-            if self.xget() <= global_var.mp.start_index + config.columns - 4 - self.get_width():
+            if self.xget() <= global_var.mp.start_index + config.columns - 5 - self.get_width():
                 self.xset(4)
 
         if inp == 'a':
