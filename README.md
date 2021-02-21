@@ -1,4 +1,4 @@
-# Jetpack Joyride
+# Brick Breaker
 ### By Rajat Kumar - 2019101020
 
 ## Overview
@@ -145,19 +145,19 @@ ___________________
 
 ## Bricks description using colors:
 ---------------------
-# LIGHTGREEN:
+### LIGHTGREEN:
     Strength = 1
     character = 1
-# LIGHTMAGENTA
+### LIGHTMAGENTA
     Strength = 2
     character = 2
-# RED
+### RED
     Strength = 3
     character = 3
-# LIGHTCYAN
+### LIGHTCYAN
     Strength = Unbreakable 
     character = U
-# LIGHTBLACK
+### LIGHTBLACK
     Strength = Blast 
     character = B
     Clears all 9 bricks nearby
@@ -167,20 +167,20 @@ ___________________
 ## Power description using colors
 ---------------------
  
-# LIGHTRED
+### LIGHTRED
     Power = Expand paddle
-# WHITE
+### WHITE
     Power = Shrink paddle
-# LIGHTBLACK
+### LIGHTBLACK
     Power = Multiply ball(not more than 4)
-# LIGHTYELLOW
+### LIGHTYELLOW
     Power = Increase speed of Ball 
-# BLUE
+### BLUE
     Power = Ball passes thru bricks
-# GREEN
+### GREEN
     Power = Grab Ball
 
-# BONUS IS IMPLEMENTED
-# Time duration of power is 10 seconds 
+## BONUS IS IMPLEMENTED
+## Time duration of power is 10 seconds 
 
 
