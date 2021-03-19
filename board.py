@@ -51,6 +51,8 @@ class Map(object):
                     pr.append(Fore.GREEN + Back.GREEN + self.matrix[y][x] + Style.RESET_ALL)
                 elif self.matrix[y][x] == 'B':
                     pr.append(Fore.LIGHTBLACK_EX + Back.BLACK + self.matrix[y][x] + Style.RESET_ALL)
+                elif self.matrix[y][x] == 'O':
+                    pr.append(Fore.MAGENTA + Back.MAGENTA + self.matrix[y][x] + Style.RESET_ALL)
                 else:
                     pr.append(self.matrix[y][x] + Style.RESET_ALL)
             print(''.join(pr))

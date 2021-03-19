@@ -44,18 +44,102 @@ class Object():
                 global_var.mp.matrix[j+self._posy][i+self._posx] = " "
 
 
+class Ufo(Object):
+    def __init__(self,character,x,y,power,defence):
+        super().__init__(character, x, y)
+        self.__power = power
+        self.__defence = defence
+        self.__xspeed = 1
+        self.__yspeed = 0
+
+    def set_xspeed(self,x):
+        self.__xspeed = x
+    
+    def set_yspeed(self,x):
+        self.__yspeed = x
+
+    def decPower(self):
+        self.__power -= 1
+
+    def width(self):
+        return self._width
+    
+    def get_power(self):
+        return self.__power
+    
+    def dec_defe(self):
+        self.__defence -= 1
+    
+    def get_defe(self):
+        return self.__defence 
+
+    def move(self):
+        px = global_var.paddle.xget()
+        if px + global_var.paddle.get_width()/2 > self.xget() + 5 and self.xget() + len(config.UFO[0])< config.columns - 3  :
+            self.xset(1)
+        elif px   < self.xget() and self.xget() > 2:
+            self.xset(-1)
+    
+    def render(self):
+        # print(self._shape)
+        # print(len(self._shape))
+        # print(len(self._shape[0]))
+        # print(self._width)
+        # print(self._height)
+        # sleep(2)
+        for i in range(self._width):
+            for j in range(self._height):
+                global_var.mp.matrix[j+self._posy][i +
+                                                    self._posx] = self._shape[j][i]
+
+                # print(self._shape[j][i])
+                # sleep(1)
+    
+class Bomb(Object):
+    def __init__(self,character,x,y):
+        super().__init__(character, x, y)
+        self.__exist = 1
+
+    def ymove(self):
+        self.yset(1)
+        if self.yget() >= global_var.paddle.yget():
+            self.__exist = 0
+            self.clear()
+            global_var.BOMB.remove(self)
+    
+    def kill(self):
+        self.__exist = 0
+        self.clear()
+    
+    def get_exist(self):
+        return self.__exist
+        
 class bricks(Object):
-    def __init__(self, character, x, y, isUnbreakable, strength, powerup):
+    def __init__(self, character, x, y, isUnbreakable, strength, powerup, rainbow):
         super().__init__(character, x, y)
         self.__unbreakable = isUnbreakable
         self.__strength = strength
         self.__destroyed = 0
         self.__powerup = powerup
+        self.__bricktoplace = strength - 1
         if strength == 5:
             self.__bomb = 1
         else:
             self.__bomb = 0
+        self.__rainbow = rainbow
+
+    def getBrick(self):
+        return self.__bricktoplace
+
+    def getRainbow(self):
+        return self.__rainbow
     
+    def setRainbow(self,x):
+        self.__rainbow = x
+
+    def getStrength(self):
+        return self.__strength
+
     ''' BONUS IMPLEMENTED ''' 
     def bomb(self):
         return self.__bomb
@@ -150,13 +234,13 @@ class ball(Object):
 
     def addx(self, x):
         self.__speedx += x
-        if self.getx_speed() <=2 and self.getx_speed() >= -2:
+        if self.getx_speed() <=1 and self.getx_speed() >= -1:
             pass
         else:
             if self.getx_speed() < 0:
-                self.__speedx = -2
+                self.__speedx = -1
             elif self.getx_speed() > 0: 
-                self.__speedx = 2
+                self.__speedx = 1
 
     def mulx(self):
         self.__speedx *= -1
@@ -201,7 +285,7 @@ class ball(Object):
     # initial move of the ball
     def initial_move(self, inp):
         if inp == 'd':
-            if global_var.paddle.xget() <= global_var.mp.start_index + config.columns - 4 - global_var.paddle.get_width():
+            if global_var.paddle.xget() <= global_var.mp.start_index + config.columns - 5 - global_var.paddle.get_width():
                 self.xset(4)
 
         if inp == 'a':
@@ -320,12 +404,36 @@ class PowerUp(Object):
                     i.release()
                     if i.yget() == global_var.paddle_ground - 1 and i.gety_speed() > 0:
                         i.yspeed_set(-i.gety_speed())
-
-                    
                 global_var.paddle.rm_grab()
-            
+
+            elif self.__number == 6:
+                global_var.paddle.delFireball()
+            elif self.__number == 7:
+                global_var.paddle.desBulletPower()
+
             global_var.paddle.rm_power(self)
             
+class Bullets(Object):
+    def __init__(self,character,x,y):
+        super().__init__(character, x, y)
+        self.__xspeed = 0
+        self.__yspeed = -1
+        self.__exist = 1
+    
+    def get_exist(self):
+        return self.__exist
+
+    def ymove(self):
+        self.yset(self.__yspeed)
+        if self.yget() <= 4:
+            self.__exist = 0
+            self.clear()
+            global_var.Bullets.remove(self)
+    
+    def bullet_des(self):
+        self.__exist = 0
+        self.clear()
+        global_var.Bullets.remove(self)
 
 
 class paddle(Object):
@@ -344,7 +452,40 @@ class paddle(Object):
         self.__grab_ball = 0
         self.__thruBall = 0
         self.__grab_pw = 0
+        self.__levelStartTime = 0        
+        self.__brickFallTime = 10
+        self.__fireball = 0
+        self.__bullet = 0
 
+    def setbulletPower(self):
+        self.__bullet = 1
+    
+    def desBulletPower(self):
+        self.__bullet = 0
+    
+    def getBulletPower(self):
+        return self.__bullet
+
+    def getBrickFallTime(self):
+        return self.__brickFallTime
+    
+    def setBrickFallTime(self,x):
+        self.__brickFallTime = x
+
+    def fireball(self):
+        self.__fireball = 1
+
+    def getFireball(self):
+        return self.__fireball
+
+    def delFireball(self):
+        self.__fireball = 0
+
+    def set_level_start_time(self):
+        self.__levelStartTime = time()
+    
+    def get_level_start_time(self):
+        return self.__levelStartTime
 
     def xset(self, x):
         self._posx += x
@@ -387,6 +528,19 @@ class paddle(Object):
                     self.__thruBall = 0
                     for i in global_var.Balls:
                         i.rm_thru()
+                elif i.get_number() == 5:
+                    for i in global_var.Balls:
+                        i.release()
+                        if i.yget() == global_var.paddle_ground - 1 and i.gety_speed() > 0:
+                            i.yspeed_set(-i.gety_speed())
+                    global_var.paddle.rm_grab()
+                elif i.get_number() == 6:
+                    self.delFireball()
+                elif i.get_number() == 7:
+                    self.desBulletPower()
+                    global_var.Bullets.clear()
+
+                
 
         self.__powerups.clear()
 
